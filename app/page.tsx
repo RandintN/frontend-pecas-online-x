@@ -1,52 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Upload, Wrench } from "lucide-react";
 import { Suspense } from "react";
 import { TableSkeleton } from "@/components/application/SkeletonTable";
 import ProductTable from "@/components/application/ProductTable";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import FileUpload from "@/components/application/FileUpload";
+import Header from "@/components/application/Header";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen w-full container mx-auto">
-      <header className="px-4 lg:px-6 flex items-center py-10">
-        <Link className="flex items-center justify-center" href="#">
-          <Wrench className="h-6 w-6" />
-          <span className="sr-only">Logo</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link className="text-sm hover:underline underline-offset-4" href="#">
-            Início
-          </Link>
-          <Link className="text-sm hover:underline underline-offset-4" href="#">
-            Produtos
-          </Link>
-          <Link className="text-sm hover:underline underline-offset-4" href="#">
-            Sobre
-          </Link>
-          <Link className="text-sm hover:underline underline-offset-4" href="#">
-            Contato
-          </Link>
-        </nav>
-        <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            Login
-          </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button size="sm">
-                <Upload className="mr-2 h-4 w-4" />
-                Upload
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <FileUpload />
-            </DialogContent>
-          </Dialog>
-        </div>
-      </header>
+      <Header />
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">

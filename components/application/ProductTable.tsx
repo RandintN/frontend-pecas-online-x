@@ -14,34 +14,41 @@ export default async function ProductTable() {
     "https://novopeasonlinemockserver-hhewbs9p.b4a.run/v1/pecas"
   );
   const parts: Produto[] = await response.json();
+
   return (
-    <div className="overflow-x-auto">
-      <Table>
+    <div className="overflow-x-auto p-4 sm:p-6">
+      <Table className="w-full">
         <TableHeader>
           <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Nome</TableHead>
-            <TableHead>Categoria</TableHead>
-            <TableHead>Descrição</TableHead>
-            <TableHead>Preço Estimado</TableHead>
-            <TableHead>Fornecedores</TableHead>
-            <TableHead>Contato</TableHead>
+            <TableHead className="text-xs sm:text-sm">ID</TableHead>
+            <TableHead className="text-xs sm:text-sm">Nome</TableHead>
+            <TableHead className="text-xs sm:text-sm">Categoria</TableHead>
+            <TableHead className="text-xs sm:text-sm">Descrição</TableHead>
+            <TableHead className="text-xs sm:text-sm">Preço Estimado</TableHead>
+            <TableHead className="text-xs sm:text-sm">Fornecedores</TableHead>
+            <TableHead className="text-xs sm:text-sm">Contato</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {parts.map((part) => (
             <TableRow key={part.id}>
-              <TableCell>{part.id}</TableCell>
-              <TableCell>{part.nome}</TableCell>
-              <TableCell>{part.categoria}</TableCell>
-              <TableCell>{part.descricao}</TableCell>
-              <TableCell>R$ {part.preco_estimado.toFixed(2)}</TableCell>
-              <TableCell>
+              <TableCell className="text-xs sm:text-sm">{part.id}</TableCell>
+              <TableCell className="text-xs sm:text-sm">{part.nome}</TableCell>
+              <TableCell className="text-xs sm:text-sm">
+                {part.categoria}
+              </TableCell>
+              <TableCell className="text-xs sm:text-sm">
+                {part.descricao}
+              </TableCell>
+              <TableCell className="text-xs sm:text-sm">
+                R$ {part.preco_estimado.toFixed(2)}
+              </TableCell>
+              <TableCell className="text-xs sm:text-sm">
                 {part.fornecedores.map((fornecedor) => (
                   <div key={fornecedor.id}>{fornecedor.nome}</div>
                 ))}
               </TableCell>
-              <TableCell>
+              <TableCell className="text-xs sm:text-sm">
                 {part.fornecedores.map((fornecedor) => (
                   <div key={fornecedor.id}>{fornecedor.telefone}</div>
                 ))}
