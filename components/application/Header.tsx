@@ -9,10 +9,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
 import DarkModeToggle from "./DarkModeToggle";
