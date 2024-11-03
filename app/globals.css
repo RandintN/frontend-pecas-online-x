@@ -76,7 +76,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
-html {
-  background-color: red;
-}
