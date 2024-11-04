@@ -21,7 +21,7 @@ export default function Header() {
         <Wrench className="h-6 w-6" />
         <span className="sr-only">Logo</span>
       </Link>
-      <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
+      <nav className="ml-auto gap-4 sm:gap-6 items-center hidden md:flex">
         <Link className="text-sm hover:underline underline-offset-4" href="#">
           Início
         </Link>
@@ -91,13 +91,17 @@ export default function Header() {
               >
                 Contato
               </Link>
-              <Button variant="outline" size="sm" className="w-[80%]">
-                Login
-              </Button>
-              <Button size="sm" className="w-[80%]">
-                <Upload className="h-4 w-4" />
-                Upload
-              </Button>
+              <Link href={"/login"}>
+                <Button variant="outline" size="sm" className="w-[80%]">
+                  Login
+                </Button>
+              </Link>
+              <Link href={"/signup"}>
+                <Button size="sm" className="w-[80%]">
+                  <Upload className="h-4 w-4" />
+                  Upload
+                </Button>
+              </Link>
             </nav>
           </DrawerContent>
         </Drawer>
