@@ -92,16 +92,21 @@ export default function Header() {
                 Contato
               </Link>
               <Link href={"/login"}>
-                <Button variant="outline" size="sm" className="w-[80%]">
+                <Button variant="outline" size="sm" className="px-4">
                   Login
                 </Button>
               </Link>
-              <Link href={"/signup"}>
-                <Button size="sm" className="w-[80%]">
-                  <Upload className="h-4 w-4" />
-                  Upload
-                </Button>
-              </Link>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="sm">
+                    <Upload className="h-4 w-4" />
+                    Upload
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <FileUpload />
+                </DialogContent>
+              </Dialog>
             </nav>
           </DrawerContent>
         </Drawer>
