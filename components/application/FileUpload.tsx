@@ -83,6 +83,7 @@ export default function FileUpload() {
             placeholder="File"
             accept=".tsv, .xlsx, .xls"
             onChange={handleFileChange} // Attach the change handler
+            className="cursor-pointer"
           />
           {error && <p className="text-red-500 text-xs">{error}</p>}{" "}
           {/* Display error message */}

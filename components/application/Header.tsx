@@ -17,7 +17,7 @@ export default function Header() {
   const [open, setOpen] = React.useState(false);
   return (
     <header className="px-4 lg:px-6 flex items-center py-10">
-      <Link className="flex items-center justify-center" href="#">
+      <Link className="flex items-center justify-center" href="/">
         <Wrench className="h-6 w-6" />
         <span className="sr-only">Logo</span>
       </Link>
@@ -37,9 +37,11 @@ export default function Header() {
       </nav>
       <div className="ml-auto items-center gap-2 hidden md:flex">
         <DarkModeToggle />
-        <Button variant="outline" size="sm">
-          Login
-        </Button>
+        <Link href={"/login"}>
+          <Button variant="outline" size="sm">
+            Login
+          </Button>
+        </Link>
         <Dialog>
           <DialogTrigger asChild>
             <Button size="sm">
