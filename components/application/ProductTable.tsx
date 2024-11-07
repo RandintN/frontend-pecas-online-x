@@ -44,7 +44,7 @@ export default async function ProductTable() {
               <TableCell className="text-xs sm:text-sm">
                 R$ {part.preco_estimado.toFixed(2)}
               </TableCell>
-              <TableCell className="text-xs sm:text-sm">
+              <TableCell className="text-xs sm:text-sm whitespace-nowrap space-y-2">
                 {part.fornecedores.map((fornecedor) => (
                   <div key={fornecedor.id}>{fornecedor.nome}</div>
                 ))}
@@ -58,7 +58,7 @@ export default async function ProductTable() {
                       className="ml-2 sm:hidden"
                       aria-label="Call supplier"
                     >
-                      <Phone className="ml-2 h-4 w-4 text-emerald-500" />
+                      <Phone className="h-4 w-4 text-emerald-500" />
                     </a>
                   </div>
                 ))}
