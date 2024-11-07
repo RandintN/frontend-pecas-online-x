@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { Produto } from "@/interfaces/Produto";
+import { Phone } from "lucide-react";
 
 export default async function ProductTable() {
   const response = await fetch(
@@ -48,9 +49,18 @@ export default async function ProductTable() {
                   <div key={fornecedor.id}>{fornecedor.nome}</div>
                 ))}
               </TableCell>
-              <TableCell className="text-xs sm:text-sm">
+              <TableCell className="text-xs sm:text-sm whitespace-nowrap space-y-2">
                 {part.fornecedores.map((fornecedor) => (
-                  <div key={fornecedor.id}>{fornecedor.telefone}</div>
+                  <div className="flex items-center" key={fornecedor.id}>
+                    {fornecedor.telefone}
+                    <a
+                      href={`tel:${fornecedor.telefone}`}
+                      className="ml-2 sm:hidden"
+                      aria-label="Call supplier"
+                    >
+                      <Phone className="ml-2 h-4 w-4 text-emerald-500" />
+                    </a>
+                  </div>
                 ))}
               </TableCell>
             </TableRow>
