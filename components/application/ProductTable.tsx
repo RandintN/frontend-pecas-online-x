@@ -78,7 +78,7 @@ export default function ProductTable({ products }: ProductTableProps) {
                 <TableCell className="text-xs sm:text-sm">
                   {product.peca.codigo}
                 </TableCell>
-                <TableCell className="text-xs sm:text-sm">
+                <TableCell className="text-xs sm:text-sm text-nowrap">
                   {product.peca.descricao}
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm">
@@ -92,10 +92,10 @@ export default function ProductTable({ products }: ProductTableProps) {
                       }).format(product.peca.precoEmCentavos / 100)
                     : "N/A"}
                 </TableCell>
-                <TableCell className="text-xs sm:text-sm">
+                <TableCell className="text-xs sm:text-sm text-nowrap">
                   {product.fornecedor.razaoSocial}
                 </TableCell>
-                <TableCell className="text-xs sm:text-sm">
+                <TableCell className="text-xs sm:text-sm text-nowrap">
                   <div className="flex items-center">
                     {formatPhoneNumber(product.fornecedor.contato.whatsapp)}
                     <a
