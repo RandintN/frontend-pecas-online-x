@@ -18,7 +18,7 @@ import {
 // } from "@/components/ui/pagination";
 import { Phone } from "lucide-react";
 
-interface Product {
+export interface Product {
   id: number;
   quantidade: number;
   fornecedor: {
@@ -37,6 +37,10 @@ interface Product {
   };
 }
 
+interface ProductTableProps {
+  products: Product[];
+}
+
 function formatPhoneNumber(phone: string): string {
   const cleaned = phone.replace(/\D/g, ""); // Remove non-numeric characters
   if (cleaned.length === 10) {
@@ -53,7 +57,7 @@ function formatPhoneNumber(phone: string): string {
   return phone; // Return original if format is unexpected
 }
 
-export default function ProductTable({ products }: any) {
+export default function ProductTable({ products }: ProductTableProps) {
   return (
     <div className="overflow-x-auto p-4 sm:p-6">
       {products.length > 0 ? (
@@ -69,7 +73,7 @@ export default function ProductTable({ products }: any) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product: any) => (
+            {products.map((product: Product) => (
               <TableRow key={product.id}>
                 <TableCell className="text-xs sm:text-sm">
                   {product.peca.codigo}

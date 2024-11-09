@@ -5,10 +5,11 @@ import React, { useState } from "react";
 import { TableSkeleton } from "@/components/application/SkeletonTable";
 import ProductTable from "@/components/application/ProductTable";
 import Header from "@/components/application/Header";
+import { Product } from "@/components/application/ProductTable";
 
 export default function Home() {
   const [code, setCode] = React.useState("");
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
