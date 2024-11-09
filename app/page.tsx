@@ -1,11 +1,35 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { TableSkeleton } from "@/components/application/SkeletonTable";
 import ProductTable from "@/components/application/ProductTable";
 import Header from "@/components/application/Header";
 
 export default function Home() {
+  const [code, setCode] = React.useState("");
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCode(e.target.value);
+  };
+
+  const fetchData = async (code: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://novo-pecas-online-backend-production.up.railway.app/api/v1/estoque/codigo/${code}?page=1&size=10`
+      );
+      const data = await res.json();
+      setProducts(data.content);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen w-full container mx-auto">
       <Header />
@@ -28,8 +52,12 @@ export default function Home() {
                     className="flex-1"
                     placeholder="Digite os códigos das peças"
                     type="search"
+                    value={code}
+                    onChange={handleSearch}
                   />
-                  <Button type="submit">Pesquisar</Button>
+                  <Button type="button" onClick={() => fetchData(code)}>
+                    Pesquisar
+                  </Button>
                 </form>
               </div>
             </div>
@@ -38,9 +66,7 @@ export default function Home() {
         <section className="w-full py-12">
           <div className="container px-4 md:px-6">
             <h2 className="text-2xl font-bold mb-6">Catálogo de Peças</h2>
-            <Suspense fallback={<TableSkeleton />}>
-              <ProductTable />
-            </Suspense>
+            {loading ? <TableSkeleton /> : <ProductTable products={products} />}
           </div>
         </section>
       </main>
