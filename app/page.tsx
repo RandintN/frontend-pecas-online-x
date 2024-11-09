@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { TableSkeleton } from "@/components/application/SkeletonTable";
 import ProductTable from "@/components/application/ProductTable";
 import Header from "@/components/application/Header";
