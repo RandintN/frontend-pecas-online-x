@@ -71,6 +71,7 @@ export default function ProductTable({ products }: ProductTableProps) {
               <TableHead className="text-xs sm:text-sm">Categoria</TableHead>
               <TableHead className="text-xs sm:text-sm">Preço</TableHead>
               <TableHead className="text-xs sm:text-sm">Fornecedor</TableHead>
+              <TableHead className="text-xs sm:text-sm">Quantidade</TableHead>
               <TableHead className="text-xs sm:text-sm">Contato</TableHead>
             </TableRow>
           </TableHeader>
@@ -96,6 +97,9 @@ export default function ProductTable({ products }: ProductTableProps) {
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm text-nowrap">
                   {product.fornecedor.razaoSocial}
+                </TableCell>
+                <TableCell className="text-xs sm:text-sm text-center text-nowrap">
+                  {product.quantidade}
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm text-nowrap">
                   <div className="flex items-center">
