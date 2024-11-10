@@ -88,7 +88,7 @@ export function PaginationControls({
           <PaginationItem>
             <PaginationNext
               onClick={() =>
-                onPageChange(Math.min(totalPages - 1, currentPage))
+                onPageChange(Math.min(currentPage + 1, totalPages - 1))
               }
               className="cursor-pointer"
             />
