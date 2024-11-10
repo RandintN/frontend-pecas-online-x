@@ -1,14 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TableSkeleton } from "@/components/application/SkeletonTable";
 import ProductTable from "@/components/application/ProductTable";
 import Header from "@/components/application/Header";
 import { Product } from "@/components/application/ProductTable";
+import { PaginationControls } from "@/components/application/PaginationControls";
 
 export default function Home() {
-  const [code, setCode] = React.useState("");
+  const [code, setCode] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -16,20 +19,34 @@ export default function Home() {
     setCode(e.target.value);
   };
 
-  const fetchData = async (code: string) => {
+  const onPageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const fetchData = async (code: string, page: number = 1) => {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://novo-pecas-online-backend-production.up.railway.app/api/v1/estoque/codigo/${code}?page=1&size=10`
+        `https://novo-pecas-online-backend-production.up.railway.app/api/v1/estoque/codigo/${code}?page=${page}&size=10`
       );
       const data = await res.json();
       setProducts(data.content);
+      setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Failed to fetch data:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!code) {
+      setProducts([]);
+      setTotalPages(0);
+      return;
+    }
+    fetchData(code, currentPage);
+  }, [currentPage]);
 
   return (
     <div className="flex flex-col min-h-screen w-full container mx-auto">
@@ -68,6 +85,13 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <h2 className="text-2xl font-bold mb-6">Catálogo de Peças</h2>
             {loading ? <TableSkeleton /> : <ProductTable products={products} />}
+            <div className="flex container mx-auto">
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+              />
+            </div>
           </div>
         </section>
       </main>

@@ -25,6 +25,7 @@ export interface Product {
     razaoSocial: string;
     contato: {
       whatsapp: string;
+      telefone: string;
     };
   };
   peca: {
@@ -60,7 +61,7 @@ function formatPhoneNumber(phone: string): string {
 export default function ProductTable({ products }: ProductTableProps) {
   return (
     <div className="overflow-x-auto p-4 sm:p-6">
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <Table className="w-full">
           <TableHeader>
             <TableRow>
@@ -84,20 +85,21 @@ export default function ProductTable({ products }: ProductTableProps) {
                 <TableCell className="text-xs sm:text-sm">
                   {product.peca.categoria.nome}
                 </TableCell>
-                <TableCell className="text-xs sm:text-sm">
+                <TableCell className="text-xs sm:text-sm text-nowrap">
                   {product.peca.precoEmCentavos
                     ? new Intl.NumberFormat("pt-BR", {
                         style: "currency",
                         currency: "BRL",
                       }).format(product.peca.precoEmCentavos / 100)
-                    : "N/A"}
+                    : "Não informado"}
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm text-nowrap">
                   {product.fornecedor.razaoSocial}
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm text-nowrap">
                   <div className="flex items-center">
-                    {formatPhoneNumber(product.fornecedor.contato.whatsapp)}
+                    {formatPhoneNumber(product.fornecedor.contato.whatsapp) ||
+                      formatPhoneNumber(product.fornecedor.contato.telefone)}
                     <a
                       href={`tel:${product.fornecedor.contato.whatsapp.replace(
                         /\D/g,
