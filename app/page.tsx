@@ -23,7 +23,7 @@ export default function Home() {
     setCurrentPage(newPage);
   };
 
-  const fetchData = async (code: string, page: number = 0) => {
+  const fetchData = async (code: string, page: number) => {
     setLoading(true);
     try {
       const res = await fetch(
@@ -32,6 +32,9 @@ export default function Home() {
       const data = await res.json();
       setProducts(data.content);
       setTotalPages(data.totalPages);
+      if (currentPage > data.totalPages) {
+        setCurrentPage(0);
+      }
     } catch (error) {
       console.error("Failed to fetch data:", error);
     } finally {
@@ -73,7 +76,10 @@ export default function Home() {
                     value={code}
                     onChange={handleSearch}
                   />
-                  <Button type="button" onClick={() => fetchData(code)}>
+                  <Button
+                    type="button"
+                    onClick={() => fetchData(code, currentPage)}
+                  >
                     Pesquisar
                   </Button>
                 </form>
