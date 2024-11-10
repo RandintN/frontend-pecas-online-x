@@ -32,7 +32,7 @@ export function PaginationControls({
 
   const pages = Array.from(
     { length: endPage - startPage + 1 },
-    (_, i) => startPage + i
+    (_, i) => startPage + i - 1
   );
 
   return (
@@ -80,7 +80,7 @@ export function PaginationControls({
               <PaginationEllipsis />
               <PaginationItem>
                 <PaginationLink
-                  onClick={() => onPageChange(totalPages - 1)}
+                  onClick={() => onPageChange(totalPages)}
                   className="cursor-pointer"
                 >
                   {totalPages}
