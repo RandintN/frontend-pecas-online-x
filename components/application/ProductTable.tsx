@@ -61,6 +61,7 @@ function formatPhoneNumber(phone: string): string {
 export default function ProductTable({ products }: ProductTableProps) {
   return (
     <div className="overflow-x-auto p-4 sm:p-6">
+      <h2 className="text-2xl font-bold mb-6">Catálogo de Peças</h2>
       {products?.length > 0 ? (
         <Table className="w-full">
           <TableHeader>
@@ -119,7 +120,7 @@ export default function ProductTable({ products }: ProductTableProps) {
           </TableBody>
         </Table>
       ) : (
-        <p className="text-center text-foreground">
+        <p className="sm:text-center text-foreground">
           Nenhum resultado encontrado
         </p>
       )}

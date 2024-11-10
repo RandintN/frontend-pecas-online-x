@@ -19,20 +19,19 @@ export function PaginationControls({
   totalPages,
   onPageChange,
 }: PaginationControlsProps) {
-  const visiblePages = 4;
+  const visiblePages = 5;
 
   // Calculate the start and end of the sliding window
   let startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
   let endPage = Math.min(totalPages, startPage + visiblePages - 1);
 
-  // Adjust startPage if we’re near the end to keep the window size consistent
   if (endPage - startPage < visiblePages - 1) {
     startPage = Math.max(1, endPage - visiblePages + 1);
   }
 
   const pages = Array.from(
     { length: endPage - startPage + 1 },
-    (_, i) => startPage + i - 1
+    (_, i) => startPage + i
   );
 
   return (
@@ -41,17 +40,16 @@ export function PaginationControls({
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+              onClick={() => onPageChange(Math.max(0, currentPage - 1))}
               className="cursor-pointer"
             />
           </PaginationItem>
 
-          {/* Show first page and ellipsis if needed */}
           {startPage > 1 && (
             <>
               <PaginationItem>
                 <PaginationLink
-                  onClick={() => onPageChange(1)}
+                  onClick={() => onPageChange(0)}
                   className="cursor-pointer"
                 >
                   1
@@ -61,12 +59,11 @@ export function PaginationControls({
             </>
           )}
 
-          {/* Render the main visible page numbers */}
           {pages.map((page) => (
             <PaginationItem key={page}>
               <PaginationLink
-                isActive={currentPage === page}
-                onClick={() => onPageChange(page)}
+                isActive={currentPage === page - 1}
+                onClick={() => onPageChange(page - 1)} // Zero-based index for API
                 className="cursor-pointer"
               >
                 {page}
@@ -74,13 +71,12 @@ export function PaginationControls({
             </PaginationItem>
           ))}
 
-          {/* Show ellipsis and last page if needed */}
-          {endPage < totalPages && (
+          {endPage < totalPages - 1 && (
             <>
               <PaginationEllipsis />
               <PaginationItem>
                 <PaginationLink
-                  onClick={() => onPageChange(totalPages)}
+                  onClick={() => onPageChange(totalPages - 1)}
                   className="cursor-pointer"
                 >
                   {totalPages}
@@ -92,7 +88,7 @@ export function PaginationControls({
           <PaginationItem>
             <PaginationNext
               onClick={() =>
-                onPageChange(Math.min(totalPages, currentPage + 1))
+                onPageChange(Math.min(totalPages - 1, currentPage))
               }
               className="cursor-pointer"
             />

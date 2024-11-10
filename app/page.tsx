@@ -10,7 +10,7 @@ import { PaginationControls } from "@/components/application/PaginationControls"
 
 export default function Home() {
   const [code, setCode] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function Home() {
     setCurrentPage(newPage);
   };
 
-  const fetchData = async (code: string, page: number = 1) => {
+  const fetchData = async (code: string, page: number = 0) => {
     setLoading(true);
     try {
       const res = await fetch(
@@ -83,7 +83,6 @@ export default function Home() {
         </section>
         <section className="w-full py-12">
           <div className="container px-4 md:px-6">
-            <h2 className="text-2xl font-bold mb-6">Catálogo de Peças</h2>
             {loading ? <TableSkeleton /> : <ProductTable products={products} />}
             <div className="flex container mx-auto">
               <PaginationControls
