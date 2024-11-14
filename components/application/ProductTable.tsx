@@ -27,6 +27,11 @@ export interface Product {
       whatsapp: string;
       telefone: string;
     };
+    endereco: {
+      estado: {
+        sigla: string;
+      };
+    };
   };
   peca: {
     codigo: string;
@@ -72,6 +77,7 @@ export default function ProductTable({ products }: ProductTableProps) {
               <TableHead className="text-xs sm:text-sm">Preço</TableHead>
               <TableHead className="text-xs sm:text-sm">Fornecedor</TableHead>
               <TableHead className="text-xs sm:text-sm">Quantidade</TableHead>
+              <TableHead className="text-xs sm:text-sm">Estado</TableHead>
               <TableHead className="text-xs sm:text-sm">Contato</TableHead>
             </TableRow>
           </TableHeader>
@@ -100,6 +106,9 @@ export default function ProductTable({ products }: ProductTableProps) {
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm text-center text-nowrap">
                   {product.quantidade}
+                </TableCell>
+                <TableCell className="text-xs sm:text-sm text-center text-nowrap">
+                  {product.fornecedor.endereco.estado.sigla}
                 </TableCell>
                 <TableCell className="text-xs sm:text-sm text-nowrap">
                   <div className="flex items-center">
