@@ -110,7 +110,7 @@ export default function ProductTable({ products }: ProductTableProps) {
                 <TableCell className="text-xs sm:text-sm text-center text-nowrap">
                   {product.fornecedor.endereco.estado.sigla}
                 </TableCell>
-                <TableCell className="text-xs sm:text-sm text-nowrap">
+                <TableCell className="text-xs sm:text-sm text-nowrap tabular-nums">
                   <div className="flex items-center">
                     {formatPhoneNumber(product.fornecedor.contato.whatsapp) ||
                       formatPhoneNumber(product.fornecedor.contato.telefone)}

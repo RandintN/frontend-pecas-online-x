@@ -26,7 +26,7 @@ export default function Header() {
           Início
         </Link>
         <Link className="text-sm hover:underline underline-offset-4" href="#">
-          Produtos
+          Planos
         </Link>
         <Link className="text-sm hover:underline underline-offset-4" href="#">
           Sobre
@@ -37,12 +37,12 @@ export default function Header() {
       </nav>
       <div className="ml-auto items-center gap-2 hidden md:flex">
         <DarkModeToggle />
-        <Link href={"/login"}>
-          <Button variant="outline" size="sm">
-            Login
+        <Link href={"/signup"}>
+          <Button variant="default" size="sm">
+            Inscreva-se
           </Button>
         </Link>
-        <Dialog>
+        {/* <Dialog>
           <DialogTrigger asChild>
             <Button size="sm">
               <Upload className="h-4 w-4" />
@@ -52,7 +52,7 @@ export default function Header() {
           <DialogContent>
             <FileUpload />
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </div>
       {/* hamburger menu */}
       <div className="ml-auto flex items-center justify-center gap-2 md:hidden relative">
@@ -77,7 +77,7 @@ export default function Header() {
                 className="text-sm hover:underline underline-offset-4"
                 href="#"
               >
-                Produtos
+                Planos
               </Link>
               <Link
                 className="text-sm hover:underline underline-offset-4"
@@ -91,12 +91,20 @@ export default function Header() {
               >
                 Contato
               </Link>
-              <Link href={"/login"}>
+              <Link
+                className="text-sm hover:underline underline-offset-4"
+                href="/signup"
+              >
+                <Button variant="default" size="sm" className="px-4">
+                  Inscreva-se
+                </Button>
+              </Link>
+              {/* <Link href={"/login"}>
                 <Button variant="outline" size="sm" className="px-4">
                   Login
                 </Button>
-              </Link>
-              <Dialog>
+              </Link> */}
+              {/* <Dialog>
                 <DialogTrigger asChild>
                   <Button size="sm">
                     <Upload className="h-4 w-4" />
@@ -106,7 +114,7 @@ export default function Header() {
                 <DialogContent>
                   <FileUpload />
                 </DialogContent>
-              </Dialog>
+              </Dialog> */}
             </nav>
           </DrawerContent>
         </Drawer>
