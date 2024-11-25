@@ -75,7 +75,7 @@ export default function Header() {
               </Link>
               <Link
                 className="text-sm hover:underline underline-offset-4"
-                href="#"
+                href="/pricing"
               >
                 Planos
               </Link>
