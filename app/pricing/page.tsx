@@ -2,10 +2,14 @@ import React from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Header from "@/components/application/Header";
 
 export default function Pricing() {
   return (
     <section className="bg-background body-font overflow-hidden">
+      <div className="container mx-auto">
+        <Header />
+      </div>
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-bold title-font mb-2 text-foreground mt-20">
@@ -148,6 +152,12 @@ export default function Pricing() {
           </div>
         </div>
       </div>
+      <footer className="text-center py-8 text-sm text-muted-foreground">
+        <p>
+          &copy; {new Date().getFullYear()} Peças Online. Todos os direitos
+          reservados.
+        </p>
+      </footer>
     </section>
   );
 }

@@ -22,16 +22,25 @@ export default function Header() {
         <span className="sr-only">Logo</span>
       </Link>
       <nav className="ml-auto gap-4 sm:gap-6 items-center hidden md:flex">
-        <Link className="text-sm hover:underline underline-offset-4" href="#">
+        <Link className="text-sm hover:underline underline-offset-4" href="/">
           Início
         </Link>
-        <Link className="text-sm hover:underline underline-offset-4" href="#">
+        <Link
+          className="text-sm hover:underline underline-offset-4"
+          href="/pricing"
+        >
           Planos
         </Link>
-        <Link className="text-sm hover:underline underline-offset-4" href="#">
+        <Link
+          className="text-sm hover:underline underline-offset-4"
+          href="/about"
+        >
           Sobre
         </Link>
-        <Link className="text-sm hover:underline underline-offset-4" href="#">
+        <Link
+          className="text-sm hover:underline underline-offset-4"
+          href="/contact"
+        >
           Contato
         </Link>
       </nav>
