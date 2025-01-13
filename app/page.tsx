@@ -7,6 +7,7 @@ import ProductTable from "@/components/application/ProductTable";
 import Header from "@/components/application/Header";
 import { Product } from "@/components/application/ProductTable";
 import { PaginationControls } from "@/components/application/PaginationControls";
+import "./globals.css";
 
 export default function Home() {
   const [code, setCode] = useState("");

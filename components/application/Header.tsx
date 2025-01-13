@@ -12,13 +12,30 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import DarkModeToggle from "./DarkModeToggle";
+import Image from "next/image";
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
   return (
     <header className="px-4 lg:px-6 flex items-center py-10">
       <Link className="flex items-center justify-center" href="/">
-        <Wrench className="h-6 w-6" />
+        <Image
+          src="/images/logo-white.png"
+          alt="AutoPeças Online"
+          width={160}
+          height={40}
+          className="object-contain dark:block hidden"
+        />
+        <span className="sr-only">Logo</span>
+      </Link>
+      <Link className="flex items-center justify-center" href="/">
+        <Image
+          src="/images/logo-black.png"
+          alt="AutoPeças Online"
+          width={160}
+          height={40}
+          className="object-contain dark:hidden block"
+        />
         <span className="sr-only">Logo</span>
       </Link>
       <nav className="ml-auto gap-4 sm:gap-6 items-center hidden md:flex">
