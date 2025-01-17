@@ -11,7 +11,6 @@ export default function FileUpload() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
-  const [token, setToken] = useState<string | null>("");
 
   const [isTokenVerified, setIsTokenVerified] = useState(false);
 
@@ -67,6 +66,7 @@ export default function FileUpload() {
   };
 
   const verifyToken = async (token: string | null) => {
+    console.log(token);
     if (!token) {
       setError("Token não encontrado.");
       return;
