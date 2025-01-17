@@ -10,6 +10,8 @@ export default function FileUpload() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
+  const [tokenError, setTokenError] = useState<string | null>(null);
+  const [isTokenVerified, setIsTokenVerified] = useState(false);
 
   // Allowed file types
   const allowedTypes = ["text/tab-separated-values", "text/plain"];
@@ -57,9 +59,40 @@ export default function FileUpload() {
     event.preventDefault(); // Prevent default behavior
   };
 
+  const verifyToken = async (token: string) => {
+    try {
+      const response = await fetch(
+        `https://novopeasonlinebackend-lnq16zyw.b4a.run/api/v1/login/verify?token=${token}`,
+        {
+          method: "GET",
+          headers: {
+            accept: "*/*",
+          },
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok && data.valid) {
+        setIsTokenVerified(true); // If token is valid, proceed
+        setTokenError(null); // Clear token error
+      } else {
+        setTokenError("Token inválido ou expirado.");
+        setIsTokenVerified(false);
+      }
+    } catch (error) {
+      setTokenError("Erro ao verificar o token.");
+      console.log("Token verification failed:", error);
+    }
+  };
+
   const handleUpload = async () => {
     console.log(file);
-    if (!file) return; // If no file is selected, do nothing
+    if (!file) return;
+
+    if (!isTokenVerified) {
+      setError("Por favor, verifique seu token antes de enviar o arquivo.");
+      return; // Don't upload if token isn't verified
+    }
 
     setIsUploading(true);
 
