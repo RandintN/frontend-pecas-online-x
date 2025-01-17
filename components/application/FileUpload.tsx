@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export default function FileUpload() {
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
 
   // Allowed file types
@@ -18,6 +18,7 @@ export default function FileUpload() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     validateFile(file);
+    setFile(file);
   };
 
   // Handle file drop
@@ -25,6 +26,7 @@ export default function FileUpload() {
     event.preventDefault(); // Prevent default behavior (e.g., opening the file)
     const file = event.dataTransfer.files?.[0];
     validateFile(file);
+    setFile(file);
   };
 
   // Validate file type and size
@@ -84,7 +86,7 @@ export default function FileUpload() {
       // Handle success (e.g., show a success message or reset the form)
       setError(null);
       setFileName(null);
-      setFile(null);
+      setFile(undefined);
     } catch (error) {
       setError("Failed to upload file");
     } finally {
