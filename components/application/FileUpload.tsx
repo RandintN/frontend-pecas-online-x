@@ -11,7 +11,7 @@ export default function FileUpload() {
   const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
   const [token, setToken] = useState<string | null>("");
-  const [tokenError, setTokenError] = useState<string | null>(null);
+
   const [isTokenVerified, setIsTokenVerified] = useState(false);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function FileUpload() {
 
   const verifyToken = async (token: string | null) => {
     if (!token) {
-      setTokenError("Token não encontrado.");
+      setError("Token não encontrado.");
       return;
     }
     try {
@@ -84,16 +84,15 @@ export default function FileUpload() {
         }
       );
 
-      const data = await response.json();
-      if (response.ok && data) {
+      if (response.status === 200) {
         setIsTokenVerified(true); // If token is valid, proceed
-        setTokenError(null); // Clear token error
+        setError(null); // Clear token error
       } else {
-        setTokenError("Token inválido ou expirado.");
+        setError("Token inválido ou expirado.");
         setIsTokenVerified(false);
       }
     } catch (error) {
-      setTokenError("Erro ao verificar o token.");
+      setError("Erro ao verificar o token.");
       console.log("Token verification failed:", error);
     }
   };
@@ -106,7 +105,7 @@ export default function FileUpload() {
 
     if (!isTokenVerified) {
       setError("Por favor, verifique seu token antes de enviar o arquivo.");
-      return; // Don't upload if token isn't verified
+      return;
     }
 
     setIsUploading(true);
