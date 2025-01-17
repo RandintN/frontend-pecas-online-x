@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 export default function FileUpload() {
   const [error, setError] = useState<string | null>(null); // State for managing error messages
   const [fileName, setFileName] = useState<string | null>(null); // State for managing file name
+  const [file, setFile] = useState<File | null>(null); // State for storing the file object
+  const [isUploading, setIsUploading] = useState(false);
 
   // Allowed file types
   const allowedTypes = [
@@ -34,9 +36,7 @@ export default function FileUpload() {
     if (file) {
       // Check file type
       if (!allowedTypes.includes(file.type)) {
-        setError(
-          "Por favor, faça o upload de um arquivo válido: tsv, xlsx, ou xls."
-        );
+        setError("Por favor, faça o upload de um arquivo válido: tsv ou txt.");
         setFileName(null);
         return;
       }
@@ -59,6 +59,42 @@ export default function FileUpload() {
     event.preventDefault(); // Prevent default behavior
   };
 
+  const handleUpload = async () => {
+    if (!file) return; // If no file is selected, do nothing
+
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file); // Append the file to FormData
+
+    try {
+      // URL with query parameters (replace with your dynamic values if needed)
+      const url = `https://novopeasonlinebackend-lnq16zyw.b4a.run/api/v1/estoque?cnpj=10.376.703%2F0007-68&token=jscibTLMsm2SAxmcyXo8mbYsnOHPADoXbXPlp9BOG7YmJOZjLcJeYobSSAwIrGrT`;
+
+      // Fetch API call to upload the file
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          accept: "application/json", // Accept header
+        },
+        body: formData, // The FormData object containing the file
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upload file");
+      }
+
+      // Handle success (e.g., show a success message or reset the form)
+      setError(null);
+      setFileName(null);
+      setFile(null);
+    } catch (error) {
+      setError("Failed to upload file");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   return (
     <Card>
       <CardContent className="p-6 space-y-4">
@@ -71,7 +107,7 @@ export default function FileUpload() {
           <span className="text-sm font-medium text-gray-500">
             Arraste e solte seu arquivo aqui
           </span>
-          <span className="text-xs text-gray-500">tsv, xlsx, xls</span>
+          <span className="text-xs text-gray-500">tsv, txt</span>
         </div>
         <div className="space-y-2 text-sm">
           <Label htmlFor="file" className="text-sm font-medium">
@@ -81,7 +117,7 @@ export default function FileUpload() {
             id="file"
             type="file"
             placeholder="File"
-            accept=".tsv, .xlsx, .xls"
+            accept=".tsv, .txt"
             onChange={handleFileChange} // Attach the change handler
             className="cursor-pointer"
           />
@@ -94,8 +130,8 @@ export default function FileUpload() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button size="lg" disabled={!!error}>
-          Upload
+        <Button size="lg" disabled={!!error} onClick={handleUpload}>
+          {isUploading ? "Carregando..." : "Upload"}
         </Button>{" "}
         {/* Disable button if there's an error */}
       </CardFooter>
