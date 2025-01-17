@@ -1,7 +1,7 @@
 "use client";
 import { Menu, Upload, Wrench, X } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import FileUpload from "./FileUpload";
@@ -16,7 +16,14 @@ import Image from "next/image";
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
-  const token = localStorage.getItem("token");
+  const [token, setToken] = React.useState<string | null>("");
+  useEffect(() => {
+    // Ensure this only runs on the client side
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+    }
+  }, []);
   return (
     <header className="px-4 lg:px-6 flex items-center py-10">
       <Link className="flex items-center justify-center" href="/">

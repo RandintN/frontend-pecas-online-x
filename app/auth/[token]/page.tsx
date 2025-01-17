@@ -1,13 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function AuthPage({ params }: { params: { token: string } }) {
   const { token } = params;
-
-  localStorage.setItem("token", token);
-
   const router = useRouter();
-  router.push("/");
+
+  useEffect(() => {
+    // Ensure this only runs on the client side
+    if (typeof window !== "undefined") {
+      localStorage.setItem("token", token);
+      router.push("/");
+    }
+  }, [token, router]);
 
   return <div></div>;
 }
