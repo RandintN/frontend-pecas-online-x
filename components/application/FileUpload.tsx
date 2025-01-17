@@ -1,5 +1,5 @@
 "use client";
-import { SVGProps, useState } from "react"; // Import useState for managing file state
+import { SVGProps, useEffect, useState } from "react"; // Import useState for managing file state
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,17 @@ export default function FileUpload() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
+  const [token, setToken] = useState<string | null>("");
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [isTokenVerified, setIsTokenVerified] = useState(false);
+
+  useEffect(() => {
+    // Ensure this only runs on the client side
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+    }
+  }, []);
 
   // Allowed file types
   const allowedTypes = ["text/tab-separated-values", "text/plain"];
@@ -59,7 +68,11 @@ export default function FileUpload() {
     event.preventDefault(); // Prevent default behavior
   };
 
-  const verifyToken = async (token: string) => {
+  const verifyToken = async (token: string | null) => {
+    if (!token) {
+      setTokenError("Token não encontrado.");
+      return;
+    }
     try {
       const response = await fetch(
         `https://novopeasonlinebackend-lnq16zyw.b4a.run/api/v1/login/verify?token=${token}`,
@@ -72,7 +85,7 @@ export default function FileUpload() {
       );
 
       const data = await response.json();
-      if (response.ok && data.valid) {
+      if (response.ok && data) {
         setIsTokenVerified(true); // If token is valid, proceed
         setTokenError(null); // Clear token error
       } else {
@@ -88,6 +101,8 @@ export default function FileUpload() {
   const handleUpload = async () => {
     console.log(file);
     if (!file) return;
+
+    await verifyToken(token);
 
     if (!isTokenVerified) {
       setError("Por favor, verifique seu token antes de enviar o arquivo.");
