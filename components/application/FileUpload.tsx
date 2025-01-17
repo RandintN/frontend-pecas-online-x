@@ -56,6 +56,7 @@ export default function FileUpload() {
   };
 
   const handleUpload = async () => {
+    console.log(file);
     if (!file) return; // If no file is selected, do nothing
 
     setIsUploading(true);
@@ -128,8 +129,7 @@ export default function FileUpload() {
       <CardFooter>
         <Button size="lg" disabled={!!error} onClick={handleUpload}>
           {isUploading ? "Carregando..." : "Upload"}
-        </Button>{" "}
-        {/* Disable button if there's an error */}
+        </Button>
       </CardFooter>
     </Card>
   );
