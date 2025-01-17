@@ -19,6 +19,7 @@ export default function FileUpload() {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
       setToken(storedToken);
+      console.log("Token retrieved from localStorage:", storedToken);
     }
   }, []);
 
