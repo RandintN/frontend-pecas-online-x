@@ -16,6 +16,7 @@ import Image from "next/image";
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
+  const token = localStorage.getItem("token");
   return (
     <header className="px-4 lg:px-6 flex items-center py-10">
       <Link className="flex items-center justify-center" href="/">
@@ -63,22 +64,30 @@ export default function Header() {
       </nav>
       <div className="ml-auto items-center gap-2 hidden md:flex">
         <DarkModeToggle />
+        {token ? (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <Upload className="h-4 w-4" />
+                Upload
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <FileUpload />
+            </DialogContent>
+          </Dialog>
+        ) : (
+          <Link href={"/login"}>
+            <Button variant="outline" size="sm" className="px-4">
+              Login
+            </Button>
+          </Link>
+        )}
         <Link href={"/signup"}>
           <Button variant="default" size="sm">
             Inscreva-se
           </Button>
         </Link>
-        {/* <Dialog>
-          <DialogTrigger asChild>
-            <Button size="sm">
-              <Upload className="h-4 w-4" />
-              Upload
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <FileUpload />
-          </DialogContent>
-        </Dialog> */}
       </div>
       {/* hamburger menu */}
       <div className="ml-auto flex items-center justify-center gap-2 md:hidden relative">
@@ -95,7 +104,7 @@ export default function Header() {
             <nav className="flex flex-col gap-4 sm:gap-6 items-center justify-center mt-4 pb-6">
               <Link
                 className="text-sm hover:underline underline-offset-4"
-                href="#"
+                href="/"
               >
                 Início
               </Link>
@@ -125,11 +134,11 @@ export default function Header() {
                   Inscreva-se
                 </Button>
               </Link>
-              {/* <Link href={"/login"}>
+              <Link href={"/login"}>
                 <Button variant="outline" size="sm" className="px-4">
                   Login
                 </Button>
-              </Link> */}
+              </Link>
               {/* <Dialog>
                 <DialogTrigger asChild>
                   <Button size="sm">

@@ -28,7 +28,7 @@ export default function Home() {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://novo-pecas-online-backend-production.up.railway.app/api/v1/estoque/codigo/${code}?page=${page}&size=10`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/estoque/codigo/${code}?page=${page}&size=10`
       );
       const data = await res.json();
       setProducts(data.content);

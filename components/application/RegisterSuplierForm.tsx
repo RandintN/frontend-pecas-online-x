@@ -29,17 +29,13 @@ export default function RegisterSuplierForm() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch(
-      "https://novo-pecas-online-backend-production.up.railway.app/api/v1/marcas"
-    )
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/marcas`)
       .then((response) => response.json())
       .then((data) => {
         setAllMarcas(data);
       });
 
-    fetch(
-      "https://novo-pecas-online-backend-production.up.railway.app/api/v1/planos"
-    )
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/planos`)
       .then((response) => response.json())
       .then((data) => {
         setPlanos(data);
@@ -84,7 +80,7 @@ export default function RegisterSuplierForm() {
 
   const createNewSupplier = async (payload: any) => {
     const response = await fetch(
-      "https://novo-pecas-online-backend-production.up.railway.app/api/v1/fornecedores",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/fornecedores`,
       {
         method: "POST",
         headers: {

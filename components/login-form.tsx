@@ -1,5 +1,6 @@
-import Link from "next/link";
+"use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,17 +11,57 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import GoogleIcon from "./application/GoogleIcon";
 
-export function LoginForm() {
+export function MagicLinkLoginForm() {
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [textColor, setTextColor] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      if (response.ok) {
+        setMessage("Link de acesso enviado para seu email!");
+        setTextColor("text-green-500");
+      } else {
+        setMessage("Erro ao enviar o link. Por favor, tente novamente.");
+        setTextColor("text-red-500");
+      }
+    } catch (error) {
+      setMessage(
+        "Erro ao conectar com o servidor. Por favor, tente novamente mais tarde."
+      );
+      setTextColor("text-red-500");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>Digite seu email abaixo para entrar</CardDescription>
+        <CardDescription>
+          Digite seu email para receber um link de acesso
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -28,35 +69,17 @@ export function LoginForm() {
               type="email"
               placeholder="nome@email.com"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Senha</Label>
-              <Link href="#" className="ml-auto inline-block text-sm underline">
-                Esqueceu sua senha?
-              </Link>
-            </div>
-            <Input id="password" type="password" required />
-          </div>
-          <div className="grid gap-2 mt-4">
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-            <Button variant="outline" className="w-full">
-              <div className="flex items-center gap-2">
-                <GoogleIcon />
-                Google
-              </div>
-            </Button>
-          </div>
-        </div>
-        <div className="mt-4 text-center text-sm">
-          Não possui uma conta?{" "}
-          <Link href="/signup" className="underline">
-            Cadastre-se
-          </Link>
-        </div>
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Enviando..." : "Enviar link de acesso"}
+          </Button>
+          {message && (
+            <p className={`text-center text-sm ${textColor}`}>{message}</p>
+          )}
+        </form>
       </CardContent>
     </Card>
   );
