@@ -4,20 +4,23 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useLocalStorage } from "@uidotdev/usehooks";
 
 export default function FileUpload() {
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
+  const [token, setToken] = useState<string | null>("");
 
   const [isTokenVerified, setIsTokenVerified] = useState(false);
 
-  const [localStorageToken, setLocalStorageToken] = useLocalStorage<string>(
-    "token",
-    ""
-  );
+  useEffect(() => {
+    // Ensure this only runs on the client side
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+    }
+  }, []);
 
   // Allowed file types
   const allowedTypes = ["text/tab-separated-values", "text/plain"];
@@ -66,7 +69,6 @@ export default function FileUpload() {
   };
 
   const verifyToken = async (token: string | null) => {
-    console.log(token);
     if (!token) {
       setError("Token não encontrado.");
       return;
@@ -99,7 +101,7 @@ export default function FileUpload() {
     console.log(file);
     if (!file) return;
 
-    await verifyToken(localStorageToken);
+    await verifyToken(token);
 
     if (!isTokenVerified) {
       setError("Por favor, verifique seu token antes de enviar o arquivo.");
