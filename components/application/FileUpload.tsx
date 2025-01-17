@@ -6,17 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export default function FileUpload() {
-  const [error, setError] = useState<string | null>(null); // State for managing error messages
-  const [fileName, setFileName] = useState<string | null>(null); // State for managing file name
-  const [file, setFile] = useState<File | null>(null); // State for storing the file object
+  const [error, setError] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
   // Allowed file types
-  const allowedTypes = [
-    "application/vnd.ms-excel",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "text/tab-separated-values",
-  ];
+  const allowedTypes = ["text/tab-separated-values", "text/plain"];
 
   // Handle file change from input
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
