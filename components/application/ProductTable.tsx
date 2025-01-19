@@ -134,7 +134,7 @@ export default function ProductTable({ products }: ProductTableProps) {
         </Table>
       ) : (
         <p className="sm:text-center text-foreground">
-          Nenhum resultado encontrado
+          Pesquise pelo código da peça acima
         </p>
       )}
     </div>

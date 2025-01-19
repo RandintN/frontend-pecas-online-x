@@ -93,13 +93,12 @@ export default function FileUpload() {
         setIsTokenVerified(false);
       }
     } catch (error) {
-      setError("Erro ao verificar o token.");
+      setError("Erro não esperado. Por favor, tente novamente mais tarde.");
       console.log("Token verification failed:", error);
     }
   };
 
   const handleUpload = async () => {
-    console.log(file);
     if (!file) return;
 
     await verifyToken(token);

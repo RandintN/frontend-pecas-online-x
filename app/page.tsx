@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import React, { useEffect, useState } from "react";
 import { TableSkeleton } from "@/components/application/SkeletonTable";
 import ProductTable from "@/components/application/ProductTable";
-import Header from "@/components/application/Header";
 import { Product } from "@/components/application/ProductTable";
 import { PaginationControls } from "@/components/application/PaginationControls";
 import "./globals.css";
@@ -53,10 +52,9 @@ export default function Home() {
   }, [currentPage]);
 
   return (
-    <div className="flex flex-col min-h-screen w-full container mx-auto">
-      <Header />
+    <div className="flex flex-col">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24 lg:py-32 container mx-auto">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-6">
@@ -89,7 +87,7 @@ export default function Home() {
           </div>
         </section>
         <section className="w-full py-12">
-          <div className="container px-4 md:px-6">
+          <div className="container mx-auto px-4 md:px-6">
             {loading ? <TableSkeleton /> : <ProductTable products={products} />}
             <div className="flex container mx-auto">
               <PaginationControls

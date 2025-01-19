@@ -63,7 +63,7 @@ export default function SignUp() {
   // </div>
 
   return (
-    <div className="flex flex-col h-screen w-full container mx-auto">
+    <div className="flex flex-col">
       <RegisterSuplierForm />
     </div>
   );

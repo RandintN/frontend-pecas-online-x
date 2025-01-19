@@ -6,9 +6,6 @@ import Header from "@/components/application/Header";
 export default function About() {
   return (
     <section className="bg-background body-font overflow-hidden">
-      <div className="container mx-auto">
-        <Header />
-      </div>
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-bold title-font mb-2 text-foreground mt-20">
@@ -39,9 +36,11 @@ export default function About() {
                 Nossa Missão
               </h2>
               <p className="leading-relaxed mb-4 text-muted-foreground">
-                Nossa missão é fornecer peças automotivas de alta qualidade e
-                soluções inovadoras para nossos clientes, contribuindo para a
-                segurança e eficiência do setor automotivo brasileiro.
+                Nossa missão é oferecer o catálogo B2B mais confiável e
+                atualizado de peças automotivas, conectando empresas a
+                fornecedores regionais com transparência e eficiência,
+                facilitando o acesso a estoques em tempo real e promovendo a
+                agilidade no setor automotivo brasileiro.
               </p>
             </div>
           </div>
@@ -54,12 +53,6 @@ export default function About() {
           </Link>
         </div>
       </div>
-      <footer className="text-center py-8 text-sm text-muted-foreground">
-        <p>
-          &copy; {new Date().getFullYear()} Peças Online. Todos os direitos
-          reservados.
-        </p>
-      </footer>
     </section>
   );
 }

@@ -7,7 +7,7 @@ import Confetti from "react-confetti-boom";
 export default function Thanks() {
   return (
     <div className="flex flex-col h-screen overflow-hidden w-full container mx-auto justify-center items-center relative">
-      <div className="absolute top-1/2 left-[35%] transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
+      <div className="absolute top-1/2 left-[35%] transform -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10">
         <Confetti mode="boom" particleCount={100} />
       </div>
       <h1 className="text-4xl font-bold">Parabéns!</h1>

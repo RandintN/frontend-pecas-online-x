@@ -12,29 +12,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { STATES } from "@/utils/States";
-import { Marca } from "@/interfaces/Marca";
 import { Plano } from "@/interfaces/Plano";
 import { FormData, INITIAL_STATE } from "@/interfaces/FormData";
 import convertCentsToBRL from "@/utils/convertCentsToBRL";
 import { convertStateToPayload } from "@/utils/convertStateToPayload";
 import { useRouter } from "next/navigation";
+import InputMask from "react-input-mask";
+
+//valid cnpj: 15826705000130
 
 export default function RegisterSuplierForm() {
-  const [allMarcas, setAllMarcas] = useState<Marca[]>([]);
   const [planos, setPlanos] = useState<Plano[]>([]);
   const [formData, setFormData] = useState<FormData>(INITIAL_STATE);
+  const [afterSubmitMessage, setAfterSubmitMessage] = useState("");
 
   const [errors, setErrors] = useState<any>({});
 
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/marcas`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllMarcas(data);
-      });
-
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/planos`)
       .then((response) => response.json())
       .then((data) => {
@@ -73,6 +69,8 @@ export default function RegisterSuplierForm() {
     if (!formData.cep) newErrors.cep = "O CEP do fornecedor é obrigatório";
     if (!formData.bairro)
       newErrors.bairro = "O bairro do fornecedor é obrigatório";
+    if (!formData.vendedores)
+      newErrors.vendedores = "O nome dos vendedores é obrigatório";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -90,7 +88,14 @@ export default function RegisterSuplierForm() {
       }
     );
     if (response.status === 201) {
+      setAfterSubmitMessage("Fornecedor cadastrado com sucesso!");
       return true;
+    }
+    if (response.status === 400) {
+      setAfterSubmitMessage(
+        "Erro ao cadastrar fornecedor. CNPJ já cadastrado."
+      );
+      return false;
     }
     return false;
   };
@@ -113,9 +118,12 @@ export default function RegisterSuplierForm() {
       className="space-y-8 max-w-2xl mx-auto p-6 rounded-lg shadow"
       onSubmit={handleSubmit}
     >
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Informações da Empresa</h2>
-        <div className="grid grid-cols-2 gap-4">
+      <div>
+        <h2 className="text-2xl font-bold">
+          Se você quer anunciar seu estoque, se inscreva abaixo e selecione seu
+          plano desejado.
+        </h2>
+        <div className="grid grid-cols-2 gap-4 mt-12">
           <div className="space-y-2">
             <Label htmlFor="empresa">Empresa</Label>
             <Input
@@ -148,80 +156,32 @@ export default function RegisterSuplierForm() {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="descricao">Descrição</Label>
-            <Select
-              value={formData.idDescricao}
-              onValueChange={(value) =>
-                setFormData({ ...formData, idDescricao: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione uma opção" />
-              </SelectTrigger>
-              <SelectContent id="descricao">
-                <SelectItem value="1">Concessionário</SelectItem>
-                <SelectItem value="2">Distribuidor</SelectItem>
-                <SelectItem value="3">Fabricante</SelectItem>
-                <SelectItem value="4">Outros</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.idDescricao && (
-              <p className="text-red-500 text-sm h-4">{errors.idDescricao}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="marcas">Marcas</Label>
-            <Select
-              onValueChange={(value) =>
-                setFormData({ ...formData, idMarca: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione uma opção" />
-              </SelectTrigger>
-              <SelectContent id="marcas">
-                {allMarcas.map((marca) => (
-                  <SelectItem key={marca.id} value={marca.id.toString()}>
-                    {marca.marca}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-              {errors.idMarca && (
-                <p className="text-red-500 text-sm h-4">{errors.idMarca}</p>
-              )}
-            </Select>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
+
+        <div className="grid grid-cols-2 gap-4 mt-6">
+          <div className="space-y-2 col-span-2">
             <Label htmlFor="cnpj">CNPJ</Label>
-            <Input
-              id="cnpj"
-              placeholder="xx.xxx.xxx/xxxx-xx"
-              value={formData.cnpj}
-              onChange={(e) =>
-                setFormData({ ...formData, cnpj: e.target.value })
-              }
-              maxLength={18}
-            />
+            <InputMask
+              mask="99.999.999/9999-99" // CNPJ format mask
+              maskChar="" // Placeholder character
+              value={formData.cnpj} // Bind form data value
+              onChange={(e: any) => {
+                setFormData({
+                  ...formData,
+                  cnpj: e.target.value, // Update the value on change
+                });
+              }}
+            >
+              {/* Input component from shadcn */}
+              {(inputProps: any) => (
+                <Input
+                  id="empresa"
+                  placeholder="xx.xxx.xxx/xxxx-xx"
+                  {...inputProps} // Spread the inputProps into the Input component
+                />
+              )}
+            </InputMask>
             {errors.cnpj && (
               <p className="text-red-500 text-sm h-4">{errors.cnpj}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="inscricao">Inscrição Estadual</Label>
-            <Input
-              id="inscricao"
-              placeholder="Número de inscrição estadual"
-              value={formData.inscricaoEstadual}
-              onChange={(e) =>
-                setFormData({ ...formData, inscricaoEstadual: e.target.value })
-              }
-            />
-            {errors.inscricao && (
-              <p className="text-red-500 text-sm h-4">{errors.inscricao}</p>
             )}
           </div>
         </div>
@@ -489,12 +449,20 @@ export default function RegisterSuplierForm() {
               setFormData({ ...formData, vendedores: e.target.value })
             }
           />
+          {errors.vendedores && (
+            <p className="text-red-500 text-sm h-4">{errors.vendedores}</p>
+          )}
         </div>
       </div>
-
       <Button type="submit" className="w-full">
         Enviar Formulário
       </Button>
+
+      {afterSubmitMessage && (
+        <p className={`text-center text-sm text-red-500 h-4`}>
+          {afterSubmitMessage}
+        </p>
+      )}
     </form>
   );
 }

@@ -25,7 +25,7 @@ export default function Header() {
     }
   }, []);
   return (
-    <header className="px-4 lg:px-6 flex items-center py-10">
+    <header className="flex items-center py-10 container mx-auto px-4">
       <Link className="flex items-center justify-center" href="/">
         <Image
           src="/images/logo-white.png"

@@ -3,13 +3,22 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Header from "@/components/application/Header";
+import convertCentsToBRL from "@/utils/convertCentsToBRL";
+import { Plano } from "@/interfaces/Plano";
 
-export default function Pricing() {
+const PLANOS = {
+  BASIC: 1,
+  PREMIUM: 3,
+};
+
+export default async function Pricing() {
+  const planos = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/planos`)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    });
   return (
     <section className="bg-background body-font overflow-hidden">
-      <div className="container mx-auto">
-        <Header />
-      </div>
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-bold title-font mb-2 text-foreground mt-20">
@@ -28,7 +37,10 @@ export default function Pricing() {
                 Básico
               </h2>
               <h1 className="text-5xl text-foreground pb-4 mb-4 border-b border-border leading-none">
-                R$521,00
+                {convertCentsToBRL(
+                  planos.find((plano: Plano) => plano.id === PLANOS.BASIC)
+                    ?.precoEmCentavos ?? ""
+                )}
                 <span className="text-lg ml-1 font-normal text-muted-foreground">
                   /mês
                 </span>
@@ -69,7 +81,12 @@ export default function Pricing() {
                 PREMIUM
               </h2>
               <h1 className="text-5xl text-foreground leading-none flex items-center pb-4 mb-4 border-b border-border">
-                <span>$783,00</span>
+                <span>
+                  {convertCentsToBRL(
+                    planos.find((plano: Plano) => plano.id === PLANOS.PREMIUM)
+                      ?.precoEmCentavos ?? ""
+                  )}
+                </span>
                 <span className="text-lg ml-1 font-normal text-muted-foreground">
                   /mês
                 </span>
@@ -105,7 +122,7 @@ export default function Pricing() {
             </div>
           </div>
           {/* VIP Plan */}
-          <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
+          {/* <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
             <div className="h-full p-6 rounded-lg border-2 border-border flex flex-col relative overflow-hidden">
               <h2 className="text-sm tracking-widest title-font mb-1 font-medium text-muted-foreground">
                 VIP
@@ -149,15 +166,9 @@ export default function Pricing() {
                 </Button>
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
-      <footer className="text-center py-8 text-sm text-muted-foreground">
-        <p>
-          &copy; {new Date().getFullYear()} Peças Online. Todos os direitos
-          reservados.
-        </p>
-      </footer>
     </section>
   );
 }
