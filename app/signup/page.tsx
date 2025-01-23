@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import RegisterSuplierForm from "@/components/application/RegisterSuplierForm";
 import React from "react";
+import RegisterSuplierForm2 from "@/components/application/RegisterSuplierForm2";
 
 export default function SignUp() {
   // <div className="flex flex-col h-screen  w-full container mx-auto">
@@ -64,7 +65,8 @@ export default function SignUp() {
 
   return (
     <div className="flex flex-col">
-      <RegisterSuplierForm />
+      {/* <RegisterSuplierForm /> */}
+      <RegisterSuplierForm2 />
     </div>
   );
 }

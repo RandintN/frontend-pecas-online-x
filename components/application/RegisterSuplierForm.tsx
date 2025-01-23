@@ -46,14 +46,8 @@ export default function RegisterSuplierForm() {
     if (!formData.razaoSocial)
       newErrors.razaoSocial = "A razão social da empresa é obrigatória";
     if (!formData.cnpj) newErrors.cnpj = "O CNPJ do fornecedor é obrigatório";
-    if (!formData.inscricaoEstadual)
-      newErrors.inscricao = "A inscrição estadual é obrigatória";
-    if (!formData.idMarca)
-      newErrors.idMarca = "O ID da marca do fornecedor é obrigatório";
     if (!formData.endereco)
       newErrors.endereco = "O endereço do fornecedor é obrigatório";
-    if (!formData.idDescricao)
-      newErrors.idDescricao = "O ID da descrição é obrigatório";
     if (!formData.telefone)
       newErrors.telefone = "O telefone do fornecedor é obrigatório";
     if (!formData.whatsapp)
@@ -102,8 +96,8 @@ export default function RegisterSuplierForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form: ", formData);
     if (validateForm()) {
-      console.log("Form: ", formData);
       const payload = convertStateToPayload(formData);
       console.log("Payload: ", payload);
       const response = await createNewSupplier(payload);
@@ -223,55 +217,6 @@ export default function RegisterSuplierForm() {
               )}
             />
           </div>
-
-          {formData.idPlano === "2" && (
-            <div className="space-y-2 col-span-2">
-              <Label htmlFor="bannerPequeno">Banner Pequeno</Label>
-              <Input
-                id="bannerPequeno"
-                type="url"
-                placeholder="Link para o banner pequeno"
-                value={formData.bannerPequeno}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    bannerPequeno: e.target.value,
-                  })
-                }
-              />
-            </div>
-          )}
-
-          {formData.idPlano === "3" && (
-            <div className="space-y-4 col-span-2">
-              {/* Banner Pequeno */}
-              <div className="space-y-2 ">
-                <Label htmlFor="bannerPequeno">Banner Pequeno</Label>
-                <Input
-                  id="bannerPequeno"
-                  type="url"
-                  placeholder="Link para o banner pequeno"
-                  value={formData.bannerPequeno}
-                  onChange={(e) =>
-                    setFormData({ ...formData, bannerPequeno: e.target.value })
-                  }
-                />
-              </div>
-              {/* Banner Grande */}
-              <div className="space-y-2 ">
-                <Label htmlFor="bannerGrande">Banner Grande</Label>
-                <Input
-                  id="bannerGrande"
-                  type="url"
-                  placeholder="Link para o banner grande"
-                  value={formData.bannerGrande}
-                  onChange={(e) =>
-                    setFormData({ ...formData, bannerGrande: e.target.value })
-                  }
-                />
-              </div>
-            </div>
-          )}
         </div>
       </div>
       <div className="space-y-4">

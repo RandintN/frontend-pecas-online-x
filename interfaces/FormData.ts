@@ -1,13 +1,8 @@
 export interface FormData {
   empresa: string;
   razaoSocial: string;
-  idDescricao: string;
-  idMarca: string;
   cnpj: string;
-  inscricaoEstadual: string;
   idPlano: string;
-  bannerPequeno: string;
-  bannerGrande: string;
   endereco: string;
   cidade: string;
   estado: string;

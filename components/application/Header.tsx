@@ -13,15 +13,19 @@ import {
 } from "../ui/drawer";
 import DarkModeToggle from "./DarkModeToggle";
 import Image from "next/image";
+import { Skeleton } from "../ui/skeleton";
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
-  const [token, setToken] = React.useState<string | null>("");
+  const [token, setToken] = React.useState<string | null>(null);
+  const [loadingToken, setLoadingToken] = React.useState(true);
   useEffect(() => {
+    setLoadingToken(true);
     // Ensure this only runs on the client side
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
       setToken(storedToken);
+      setLoadingToken(false);
     }
   }, []);
   return (
@@ -71,7 +75,9 @@ export default function Header() {
       </nav>
       <div className="ml-auto items-center gap-2 hidden md:flex">
         <DarkModeToggle />
-        {token ? (
+        {loadingToken ? (
+          <Skeleton className="w-[80px] h-[32px]" />
+        ) : token ? (
           <Dialog>
             <DialogTrigger asChild>
               <Button size="sm">
@@ -84,7 +90,7 @@ export default function Header() {
             </DialogContent>
           </Dialog>
         ) : (
-          <Link href={"/login"}>
+          <Link href="/login">
             <Button variant="outline" size="sm" className="px-4">
               Login
             </Button>
