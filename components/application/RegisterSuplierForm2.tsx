@@ -26,7 +26,10 @@ import { STATES } from "@/utils/States";
 import { formatCEP } from "@/utils/formatCep";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
+import {
+  formatPhoneNumber,
+  formatWhatsappNumber,
+} from "@/utils/formatPhoneNumber";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { convertStateToPayload } from "@/utils/convertStateToPayload";
@@ -367,7 +370,7 @@ export default function RegisterSuplierForm2() {
                   placeholder="(xx) xxxxx-xxxx"
                   {...field}
                   onChange={(e) =>
-                    field.onChange(formatPhoneNumber(e.target.value))
+                    field.onChange(formatWhatsappNumber(e.target.value))
                   }
                   maxLength={12}
                 />
