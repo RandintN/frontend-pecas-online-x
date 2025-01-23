@@ -8,7 +8,7 @@ import { Plano } from "@/interfaces/Plano";
 
 const PLANOS = {
   BASIC: 1,
-  PREMIUM: 3,
+  PREMIUM: 2,
 };
 
 export default async function Pricing() {
