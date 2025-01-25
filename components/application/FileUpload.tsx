@@ -8,6 +8,7 @@ import { Circle, CircleCheck } from "lucide-react";
 
 export default function FileUpload() {
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File>();
   const [isUploading, setIsUploading] = useState(false);
@@ -112,13 +113,20 @@ export default function FileUpload() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to upload file");
+        throw new Error(
+          "Erro ao subir o arquivo. Por favor, tente novamente mais tarde."
+        );
       }
       setError(null);
       setFileName(null);
       setFile(undefined);
+      setSuccess(
+        "Arquivo enviado com sucesso! Verifique seu email para mais detalhes."
+      );
     } catch (error) {
-      setError("Failed to upload file");
+      setError(
+        "Erro ao subir o arquivo. Por favor, tente novamente mais tarde."
+      );
     } finally {
       setIsUploading(false);
     }
@@ -151,6 +159,7 @@ export default function FileUpload() {
             className="cursor-pointer"
           />
           {error && <p className="text-red-500 text-xs">{error}</p>}{" "}
+          {success && <p className="text-green-500 text-xs">{success}</p>}{" "}
           {fileName && (
             <div className="flex items-center gap-1 mt-4">
               <p className="text-green-500 text-xs">
