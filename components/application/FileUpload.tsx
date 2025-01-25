@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Circle, CircleCheck } from "lucide-react";
 
 export default function FileUpload() {
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +16,6 @@ export default function FileUpload() {
   const [isTokenVerified, setIsTokenVerified] = useState(false);
 
   useEffect(() => {
-    // Ensure this only runs on the client side
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
       setToken(storedToken);
@@ -23,50 +23,42 @@ export default function FileUpload() {
     }
   }, []);
 
-  // Allowed file types
   const allowedTypes = ["text/tab-separated-values", "text/plain"];
 
-  // Handle file change from input
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     validateFile(file);
     setFile(file);
   };
 
-  // Handle file drop
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault(); // Prevent default behavior (e.g., opening the file)
+    event.preventDefault();
     const file = event.dataTransfer.files?.[0];
     validateFile(file);
     setFile(file);
   };
 
-  // Validate file type and size
   const validateFile = (file: File | undefined) => {
     if (file) {
-      // Check file type
       if (!allowedTypes.includes(file.type)) {
         setError("Por favor, faça o upload de um arquivo válido: tsv ou txt.");
         setFileName(null);
         return;
       }
 
-      // Check file size
       if (file.size > 25 * 1024 * 1024) {
-        // 25 MB in bytes
         setError("O arquivo deve ser menor que 25 MB.");
         setFileName(null);
         return;
       }
 
-      setError(null); // Clear any previous error
-      setFileName(file.name); // Set the uploaded file name
+      setError(null);
+      setFileName(file.name);
     }
   };
 
-  // Prevent default drag behaviors
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault(); // Prevent default behavior
+    event.preventDefault();
   };
 
   const verifyToken = async (token: string | null) => {
@@ -86,8 +78,8 @@ export default function FileUpload() {
       );
 
       if (response.status === 200) {
-        setIsTokenVerified(true); // If token is valid, proceed
-        setError(null); // Clear token error
+        setIsTokenVerified(true);
+        setError(null);
       } else {
         setError("Token inválido ou expirado.");
         setIsTokenVerified(false);
@@ -102,35 +94,26 @@ export default function FileUpload() {
     if (!file) return;
 
     await verifyToken(token);
-
-    if (!isTokenVerified) {
-      setError("Por favor, verifique seu token antes de enviar o arquivo.");
-      return;
-    }
+    console.log("isTokenVerified", isTokenVerified);
 
     setIsUploading(true);
 
     const formData = new FormData();
-    formData.append("file", file); // Append the file to FormData
+    formData.append("file", file);
 
     try {
-      // URL with query parameters (replace with your dynamic values if needed)
-      const url = `https://novopeasonlinebackend-lnq16zyw.b4a.run/api/v1/estoque?cnpj=10.376.703%2F0007-68&token=jscibTLMsm2SAxmcyXo8mbYsnOHPADoXbXPlp9BOG7YmJOZjLcJeYobSSAwIrGrT`;
-
-      // Fetch API call to upload the file
+      const url = `https://novopeasonlinebackend-lnq16zyw.b4a.run/api/v1/estoque?token=${token}`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          accept: "application/json", // Accept header
+          accept: "application/json",
         },
-        body: formData, // The FormData object containing the file
+        body: formData,
       });
 
       if (!response.ok) {
         throw new Error("Failed to upload file");
       }
-
-      // Handle success (e.g., show a success message or reset the form)
       setError(null);
       setFileName(null);
       setFile(undefined);
@@ -146,8 +129,8 @@ export default function FileUpload() {
       <CardContent className="p-6 space-y-4">
         <div
           className="border-2 border-dashed border-gray-200 rounded-lg flex flex-col gap-1 p-6 items-center"
-          onDrop={handleDrop} // Handle drop event
-          onDragOver={handleDragOver} // Handle drag over event
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
         >
           <FileIcon className="w-12 h-12" />
           <span className="text-sm font-medium text-gray-500">
@@ -164,15 +147,18 @@ export default function FileUpload() {
             type="file"
             placeholder="File"
             accept=".tsv, .txt"
-            onChange={handleFileChange} // Attach the change handler
+            onChange={handleFileChange}
             className="cursor-pointer"
           />
           {error && <p className="text-red-500 text-xs">{error}</p>}{" "}
-          {/* Display error message */}
           {fileName && (
-            <p className="text-green-500 text-xs">Uploaded file: {fileName}</p>
+            <div className="flex items-center gap-1 mt-4">
+              <p className="text-green-500 text-xs">
+                Arquivo pronto para o envio{" "}
+              </p>
+              <CircleCheck className="w-4 h-4 text-green-500" />
+            </div>
           )}{" "}
-          {/* Display uploaded file name */}
         </div>
       </CardContent>
       <CardFooter>

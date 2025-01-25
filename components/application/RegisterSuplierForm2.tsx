@@ -132,7 +132,7 @@ export default function RegisterSuplierForm2() {
 
   return (
     <Form {...form}>
-      <h2 className="text-2xl font-bold max-w-2xl mx-auto p-6">
+      <h2 className="text-3xl font-bold max-w-2xl mx-auto p-6">
         Se você quer anunciar seu estoque, se inscreva abaixo e selecione seu
         plano desejado.
       </h2>
@@ -230,7 +230,7 @@ export default function RegisterSuplierForm2() {
           />
         </FormItem>
 
-        <h2 className="text-2xl font-bold mt-4 col-span-2">Endereço</h2>
+        <h2 className="text-3xl font-bold mt-4 col-span-2">Endereço</h2>
 
         <FormField
           control={form.control}
@@ -334,7 +334,7 @@ export default function RegisterSuplierForm2() {
           )}
         />
 
-        <h2 className="text-2xl font-bold mt-4 col-span-2">Contato</h2>
+        <h2 className="text-3xl font-bold mt-4 col-span-2">Contato</h2>
 
         <FormField
           control={form.control}
@@ -398,7 +398,7 @@ export default function RegisterSuplierForm2() {
           )}
         />
 
-        <h2 className="text-2xl font-bold mt-4 col-span-2">
+        <h2 className="text-3xl font-bold mt-4 col-span-2">
           Informações Adicionais
         </h2>
 

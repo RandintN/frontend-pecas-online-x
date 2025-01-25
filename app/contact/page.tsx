@@ -11,7 +11,7 @@ export default function Contact() {
           <h1 className="sm:text-4xl text-3xl font-bold title-font mb-2 text-foreground mt-20">
             Entre em Contato
           </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-muted-foreground">
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-md text-muted-foreground">
             Estamos aqui para ajudar. Preencha o formulário abaixo e entraremos
             em contato o mais breve possível.
           </p>

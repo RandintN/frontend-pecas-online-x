@@ -21,10 +21,10 @@ export default async function Pricing() {
     <section className="bg-background body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <h1 className="sm:text-4xl text-3xl font-bold title-font mb-2 text-foreground mt-20">
+          <h1 className="sm:text-4xl text-4xl font-bold title-font mb-2 text-foreground mt-20">
             Planos
           </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-muted-foreground">
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-md text-muted-foreground">
             Escolha o plano perfeito para sua empresa. Atualize ou cancele a
             assinatura a qualquer momento.
           </p>

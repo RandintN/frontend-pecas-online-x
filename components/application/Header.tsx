@@ -51,23 +51,23 @@ export default function Header() {
         <span className="sr-only">Logo</span>
       </Link>
       <nav className="ml-auto gap-4 sm:gap-6 items-center hidden md:flex">
-        <Link className="text-sm hover:underline underline-offset-4" href="/">
+        <Link className="text-md hover:underline underline-offset-4" href="/">
           Início
         </Link>
         <Link
-          className="text-sm hover:underline underline-offset-4"
+          className="text-md hover:underline underline-offset-4"
           href="/pricing"
         >
           Planos
         </Link>
         <Link
-          className="text-sm hover:underline underline-offset-4"
+          className="text-md hover:underline underline-offset-4"
           href="/about"
         >
           Sobre
         </Link>
         <Link
-          className="text-sm hover:underline underline-offset-4"
+          className="text-md hover:underline underline-offset-4"
           href="/contact"
         >
           Contato
@@ -116,31 +116,31 @@ export default function Header() {
             </div>
             <nav className="flex flex-col gap-4 sm:gap-6 items-center justify-center mt-4 pb-6">
               <Link
-                className="text-sm hover:underline underline-offset-4"
+                className="text-md hover:underline underline-offset-4"
                 href="/"
               >
                 Início
               </Link>
               <Link
-                className="text-sm hover:underline underline-offset-4"
+                className="text-md hover:underline underline-offset-4"
                 href={"/pricing"}
               >
                 Planos
               </Link>
               <Link
-                className="text-sm hover:underline underline-offset-4"
-                href="#"
+                className="text-md hover:underline underline-offset-4"
+                href="/about"
               >
                 Sobre
               </Link>
               <Link
-                className="text-sm hover:underline underline-offset-4"
-                href="#"
+                className="text-md hover:underline underline-offset-4"
+                href="/contact"
               >
                 Contato
               </Link>
               <Link
-                className="text-sm hover:underline underline-offset-4"
+                className="text-md hover:underline underline-offset-4"
                 href="/signup"
               >
                 <Button variant="default" size="sm" className="px-4">

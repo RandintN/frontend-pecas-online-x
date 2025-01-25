@@ -11,25 +11,12 @@ export default function About() {
           <h1 className="sm:text-4xl text-3xl font-bold title-font mb-2 text-foreground mt-20">
             Sobre Nós
           </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-muted-foreground">
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-md text-muted-foreground">
             Conheça mais sobre a Peças Online e nossa missão de fornecer as
             melhores soluções para o seu negócio.
           </p>
         </div>
         <div className="flex flex-wrap -m-4 justify-center">
-          <div className="p-4 lg:w-1/2 md:w-full">
-            <div className="h-full bg-muted p-8 rounded-lg">
-              <h2 className="text-2xl font-medium title-font mb-4 text-foreground">
-                Nossa História
-              </h2>
-              <p className="leading-relaxed mb-4 text-muted-foreground">
-                Fundada em 2010, a Peças Online começou como uma pequena loja
-                local e cresceu para se tornar uma das principais fornecedoras
-                de peças automotivas do Brasil. Nossa jornada é marcada por
-                inovação, qualidade e compromisso com a satisfação do cliente.
-              </p>
-            </div>
-          </div>
           <div className="p-4 lg:w-1/2 md:w-full">
             <div className="h-full bg-muted p-8 rounded-lg">
               <h2 className="text-2xl font-medium title-font mb-4 text-foreground">
